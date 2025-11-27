@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Hygiene - Your Guide to Wellness</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .section {
+            background: #2a2a3e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .card {
+            background: linear-gradient(135deg, #3a3a4e 0%, #2a2a3e 100%);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tip-box {
+            background: #3a3a4e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode header,
+        body.dark-mode footer {
+            background: rgba(42, 42, 62, 0.95);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode footer p {
+            color: #b0b0b0;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .dark-mode-toggle {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            background: #764ba2;
+            transform: translateY(-5px);
+        }
+
+        .scroll-top.show {
+            display: flex;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .card ul {
+            list-style-position: inside;
+            color: #555;
+        }
+
+        .card ul li {
+            margin: 0.5rem 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-box {
+            background: #f0f4ff;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .tip-box strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: #666;
+        }
+
+        .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .calculator h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .calc-input {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .calc-input input {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .calc-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .calc-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .calc-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .daily-tip {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .daily-tip h3 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .tip-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .tip-btn {
+            background: white;
+            color: #f5576c;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tip-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🏥 HealthyLife</div>
+            <ul class="nav-links">
+                <li><a href="#personal">Personal Hygiene</a></li>
+                <li><a href="#nutrition">Nutrition</a></li>
+                <li><a href="#exercise">Exercise</a></li>
+                <li><a href="#mental">Mental Health</a></li>
+                <li><button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Health & Hygiene Guide</h1>
+        <p>Your comprehensive resource for maintaining a healthy lifestyle</p>
+    </div>
+
+    <div class="container">
+        <div class="section fade-in">
+            <h2>Health Statistics</h2>
+            <div class="stats-section">
+                <div class="stat-box">
+                    <span class="stat-number" data-target="2000">0</span>
+                    <span class="stat-label">Liters of water your body needs yearly</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="206">0</span>
+                    <span class="stat-label">Bones in adult human body</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="100000">0</span>
+                    <span class="stat-label">Times your heart beats daily</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" data-target="650">0</span>
+                    <span class="stat-label">Muscles in human body</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>🧮 BMI Calculator</h2>
+            <p>Calculate your Body Mass Index to understand your health status</p>
+            <div class="calculator">
+                <h3>Check Your BMI</h3>
+                <div class="calc-input">
+                    <input type="number" id="weight" placeholder="Weight (kg)" min="1">
+                    <input type="number" id="height" placeholder="Height (cm)" min="1">
+                    <button class="calc-btn" onclick="calculateBMI()">Calculate BMI</button>
+                </div>
+                <div class="calc-result" id="bmiResult">Enter your details to calculate BMI</div>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>💡 Daily Health Tip</h2>
+            <div class="daily-tip">
+                <h3>Get Your Daily Wellness Tip!</h3>
+                <div class="tip-content" id="dailyTip">Click below to get a health tip for today</div>
+                <button class="tip-btn" onclick="generateTip()">Get New Tip</button>
+            </div>
+        </div>
+
+        <section id="personal" class="section fade-in">
+            <h2>Personal Hygiene Essentials</h2>
+            <p>Good personal hygiene is crucial for preventing illness and maintaining overall health. Here are the key practices everyone should follow:</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <span class="emoji">🧼</span>
+                    <h3>Hand Washing</h3>
+                    <ul>
+                        <li>Wash hands for at least 20 seconds</li>
+                        <li>Use soap and warm water</li>
+                        <li>Before eating and after using restroom</li>
+                        <li>After coughing or sneezing</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="emoji">🦷</span>
+                    <h3>Oral Hygiene</h3>
+                    <ul>
+                        <li>Brush teeth twice daily</li>
+                        <li>Floss at least once a day</li>
+                        <li>Use mouthwash regularly</li>
+                        <li>Visit dentist every 6 months</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="emoji">🚿</span>
+                    <h3>Body Cleanliness</h3>
+                    <ul>
+                        <li>Shower or bathe daily</li>
+                        <li>Use clean towels</li>
+                        <li>Wash hair regularly</li>
+                        <li>Keep nails clean and trimmed</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="nutrition" class="section">
+            <h2>Nutrition & Healthy Eating</h2>
+            <p>A balanced diet is fundamental to good health. Focus on these nutritional guidelines:</p>
+            
+            <div class="tips-grid">
+                <div class="tip-box">
+                    <strong>🥗 Eat Plenty of Vegetables</strong>
+                    Include 5-7 servings of fruits and vegetables daily for essential vitamins and minerals.
+                </div>
+                <div class="tip-box">
+                    <strong>💧 Stay Hydrated</strong>
+                    Drink 8-10 glasses of water daily to maintain proper body function.
+                </div>
+                <div class="tip-box">
+                    <strong>🍞 Choose Whole Grains</strong>
+                    Opt for whole grain bread, rice, and pasta for better fiber intake.
+                </div>
+                <div class="tip-box">
+                    <strong>🥩 Lean Proteins</strong>
+                    Include fish, chicken, beans, and nuts for muscle health and energy.
+                </div>
+                <div class="tip-box">
+                    <strong>🍰 Limit Sugar</strong>
+                    Reduce intake of processed sugars and sugary drinks.
+                </div>
+                <div class="tip-box">
+                    <strong>🧂 Reduce Salt</strong>
+                    Keep sodium intake low to maintain healthy blood pressure.
+                </div>
+            </div>
+        </section>
+
+        <section id="exercise" class="section">
+            <h2>Exercise & Physical Activity</h2>
+            <p>Regular physical activity is essential for maintaining a healthy body and mind.</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <span class="emoji">🏃</span>
+                    <h3>Cardiovascular</h3>
+                    <ul>
+                        <li>30 minutes daily of moderate activity</li>
+                        <li>Walking, jogging, or cycling</li>
+                        <li>Swimming or dancing</li>
+                        <li>Improves heart health</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="emoji">💪</span>
+                    <h3>Strength Training</h3>
+                    <ul>
+                        <li>2-3 times per week</li>
+                        <li>Build muscle mass</li>
+                        <li>Improve bone density</li>
+                        <li>Boost metabolism</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="emoji">🧘</span>
+                    <h3>Flexibility</h3>
+                    <ul>
+                        <li>Stretching exercises daily</li>
+                        <li>Yoga or Pilates</li>
+                        <li>Prevents injuries</li>
+                        <li>Improves posture</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="mental" class="section">
+            <h2>Mental Health & Well-being</h2>
+            <p>Mental health is just as important as physical health. Take care of your mind with these practices:</p>
+            
+            <div class="tips-grid">
+                <div class="tip-box">
+                    <strong>😴 Quality Sleep</strong>
+                    Aim for 7-9 hours of sleep each night for optimal mental and physical recovery.
+                </div>
+                <div class="tip-box">
+                    <strong>🧘‍♀ Stress Management</strong>
+                    Practice meditation, deep breathing, or mindfulness to reduce stress levels.
+                </div>
+                <div class="tip-box">
+                    <strong>👥 Social Connections</strong>
+                    Maintain healthy relationships and spend time with friends and family.
+                </div>
+                <div class="tip-box">
+                    <strong>🎯 Set Goals</strong>
+                    Establish realistic goals to give yourself purpose and motivation.
+                </div>
+                <div class="tip-box">
+                    <strong>📱 Digital Detox</strong>
+                    Take regular breaks from screens to reduce eye strain and mental fatigue.
+                </div>
+                <div class="tip-box">
+                    <strong>💚 Seek Help</strong>
+                    Don't hesitate to talk to professionals if you're struggling mentally or emotionally.
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 HealthyLife. Promoting wellness and healthy living for everyone.</p>
+        <p>Remember: Always consult healthcare professionals for personalized medical advice.</p>
+    </footer>
+
+    <button class="scroll-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.dark-mode-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☀ Light Mode';
+            } else {
+                btn.textContent = '🌙 Dark Mode';
+            }
+        }
+
+        // Scroll to Top Button
+        window.onscroll = function() {
+            const scrollBtn = document.querySelector('.scroll-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // BMI Calculator
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // convert to meters
+            const resultDiv = document.getElementById('bmiResult');
+
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                resultDiv.textContent = 'Please enter valid weight and height values';
+                return;
+            }
+
+            const bmi = (weight / (height * height)).toFixed(1);
+            let category = '';
+            let emoji = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                emoji = '⚠';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Normal weight';
+                emoji = '✅';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'Overweight';
+                emoji = '⚠';
+            } else {
+                category = 'Obese';
+                emoji = '🚨';
+            }
+
+            resultDiv.innerHTML = ${emoji} Your BMI is <strong>${bmi}</strong> - ${category};
+        }
+
+        // Daily Health Tips
+        const healthTips = [
+            "Drink a glass of water as soon as you wake up to kickstart your metabolism.",
+            "Take a 5-minute walking break every hour if you sit for long periods.",
+            "Practice deep breathing for 5 minutes daily to reduce stress and anxiety.",
+            "Eat a rainbow of fruits and vegetables to get diverse nutrients.",
+            "Get 15 minutes of sunlight daily for natural Vitamin D.",
+            "Replace one sugary drink with water or herbal tea today.",
+            "Do 10 minutes of stretching before bed for better sleep quality.",
+            "Wash your hands for 20 seconds - sing 'Happy Birthday' twice!",
+            "Take the stairs instead of the elevator to boost your heart health.",
+            "Practice gratitude - write down 3 things you're thankful for today.",
+            "Limit screen time 1 hour before bed for better sleep.",
+            "Add more fiber to your diet with whole grains and legumes.",
+            "Stand up and stretch during phone calls to stay active.",
+            "Floss your teeth daily - it's as important as brushing!",
+            "Practice good posture to prevent back and neck pain.",
+            "Keep healthy snacks nearby to avoid junk food temptations.",
+            "Do a 10-minute meditation to improve focus and reduce stress.",
+            "Laugh more - it boosts your immune system and reduces stress!",
+            "Get 7-9 hours of quality sleep each night for optimal health.",
+            "Stay connected with friends and family for mental well-being."
+        ];
+
+        function generateTip() {
+            const tipDiv = document.getElementById('dailyTip');
+            const randomTip = healthTips[Math.floor(Math.random() * healthTips.length)];
+            tipDiv.textContent = randomTip;
+            tipDiv.style.animation = 'none';
+            setTimeout(() => {
+                tipDiv.style.animation = 'fadeIn 0.6s ease-out';
+            }, 10);
+        }
+
+        // Animated Counter for Statistics
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / speed;
+
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
